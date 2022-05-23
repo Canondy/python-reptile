@@ -1,4 +1,5 @@
 
+# bs4 官方网址：https://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/
 # 安装 beautifulsoup4    pip install bs4
 
 # 导入requests解析包
