@@ -2,6 +2,11 @@
 # 防盗链 问题    1 ->2 ->3   必须按照顺序访问才可以成功，
 # 如果直接访问————2链接————就会出现问题，  访问————链接2————必须添加————链接1————的地址
 
+# 1.拿到contId
+# 2.请求https://www.pearvideo.com/videoStatus.jsp?contId=1762556&mrd=0.6891081089328521返回 JSON数据，并获取srcUrl
+# 3.srcUrl进行调整，变成实际的视频下载地址
+# 4.下载视频
+
 # 导入requests
 import requests
 
