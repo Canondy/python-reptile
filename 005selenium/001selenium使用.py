@@ -1,7 +1,7 @@
 
 # 自动化测试工具： selenium
 # 安装selenium  pip install selenium
-# 下载浏览器驱动  https://chromedriver.chromium.org/home   选择跟浏览器相对应的版本，
+# 下载浏览器驱动  https://chromedriver.chromium.org/home   选择跟浏览器相对应的版本，https://chromedriver.chromium.org/downloads
 # 然后解压，得到 chromedriver 文件，把它放到python解释器所在的文件夹下  /Users/liuhuan/PycharmProject/python-learn/test/venv/bin/   放到bin下
 
 from selenium.webdriver import Chrome
