@@ -14,14 +14,15 @@ urls = {
 
 # 下载图片
 async def down_img(url):
-    # 从url中截取文件名称
+    # 从url中截取文件名称  从右边切，切一次，拿[1]的内容
     name = url.rsplit("/", 1)[1]
-    # 使用aiohttp
+    # 使用aiohttp 发送请求
     async with aiohttp.ClientSession() as session:
-        # 请求异步请求 url
+        # 请求异步请求 url 得到图片内容
         async with session.get(url) as res:
-            # 下载图片
+            # 下载图片   还可以使用 aiofiles 异步下载
             with open("img/" + name, mode="wb") as f:
+                # 读取内容是异步操作，用await挂起
                 f.write(await res.content.read())
     print(name, "下载完成")
 
