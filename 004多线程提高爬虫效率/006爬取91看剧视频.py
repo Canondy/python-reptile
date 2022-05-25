@@ -2,6 +2,14 @@
 # 爬取91看剧视频
 # 这个操作会造成PyCharm卡死，谨慎操作
 
+"""
+过程分析：1.拿到http://www.wwmulu.com/rj/nsdfz/play-1-1.html视频页面的源码
+        2.从源码中找到到下载m3u8文件下载地址，并用xpath提取，url
+        3.下载m3u8文件
+        4.读取m3u8文件，下载视频（都是一段一段的小视频）
+        5.合并视频
+"""
+
 import requests
 from lxml import etree
 
