@@ -1,8 +1,9 @@
 
-# selenium窗口切换
+# selenium窗口切换和iframe之间的切换
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+
 
 # 1.创建浏览器对象
 web = Chrome()
@@ -24,3 +25,19 @@ print(content)
 web.close()
 # 9.切回到主页面
 web.switch_to.window(web.window_handles[0])
+
+
+"""
+# iframe之间的切换
+web = Chrome()
+url = "http://www.wwmulu.com/rj/nsdfz/play-1-1.html"
+web.get(url)
+# 拿到iframe
+iframe = web.find_element(By.XPATH, '//*[@id="cms_player"]/iframe')
+# 切到iframe
+web.switch_to.frame(iframe)
+# 切到默认的iframe   web.switch_to.default_content()  
+# 拿iframe里面的数据
+cont = web.find_element(By.XPATH, '//*[@id="ZsPlay"]/div[6]/div[1]/a').text
+print(cont)  # 有问题 不打印
+"""
