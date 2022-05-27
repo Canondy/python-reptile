@@ -38,3 +38,5 @@
 
 # 3.执行工程：scrapy crawl 文件名称
 
+# 1.项目firstTest是scrapy简单使用， 爬虫文件first.py 和settings.py 文件的说明及使用
+# 2.
