@@ -13,10 +13,21 @@ class WeiboSpider(scrapy.Spider):
     def parse(self, response):
         # 1.响应结果取解析json字符串
         result = response.json()["statuses"]
+        # 定义列表，用来存储解析后的数据
+        actor_list = []
         # 循环取每一项，每个用户相对应的用户名和文案
         for item in result:
             # 取用户名
             author = item["user"]["screen_name"]
             # 取文案
-            text = item["text_raw"].replace("\n", "")
-            print([author, text])
+            text = item["text_raw"].replace("\n", "").replace("​","")
+            # print([author, text])
+            # 把获取到的用户名和文案放到 字典中
+            data = {
+                "author": author,
+                "content": text
+            }
+            # 然后把每一条数据放到列表里面
+            actor_list.append(data)
+        # 返回列表
+        return actor_list

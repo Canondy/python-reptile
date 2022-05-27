@@ -39,4 +39,14 @@
 # 3.执行工程：scrapy crawl 文件名称
 
 # 1.项目firstTest是scrapy简单使用， 爬虫文件first.py 和settings.py 文件的说明及使用
-# 2.
+# 2.项目testWeibo是scrapy简单使用， 爬取微博数据 并解析 并存储到本地指定的文件中
+# 3.scrapy的s数据持久化存储：
+#     一.基于终端指令：
+#             命令：scrapy crawl 爬虫文件名称 -o  路径/文件名.类型
+#             例子：在 scrapytestWeibo下面执行 crawl weibo -o ./data/weibo.csv      会在testWeibo下面创建文件及目录
+#             类型：只能是这几种 ('json', 'jsonlines', 'jl', 'csv', 'xml', 'marshal', 'pickle')
+#             要求：只可以将 爬虫文件中parse方法 的返回值存储到本地文本文件中
+#             优点：简介高效便捷
+#             缺点：局限性比较强（只能存储在本地指定的文件后缀名中）
+#     二.基于管道：
+#             基于管道：

@@ -5,6 +5,8 @@
       <excludeFolder url="file://$MODULE_DIR$/venv" />
       <excludeFolder url="file://$MODULE_DIR$/002数据解析与提取/data" />
       <excludeFolder url="file://$MODULE_DIR$/002数据解析与提取/picture" />
+      <excludeFolder url="file://$MODULE_DIR$/006scrapy框架/testWeibo/testWeibo/data" />
+      <excludeFolder url="file://$MODULE_DIR$/006scrapy框架/testWeibo/data" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
