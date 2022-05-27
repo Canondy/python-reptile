@@ -65,9 +65,12 @@ LOG_LEVEL = 'ERROR'
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'testWeibo.pipelines.TestweiboPipeline': 300,
-#}
+# 管道配置，默认不开启，需要手动开启
+ITEM_PIPELINES = {
+   # testWeibo.pipelines.TestweiboPipeline 这个是管道文件中的管道类
+   # 300表示的是优先级，数字越大，优先级越低
+   'testWeibo.pipelines.TestweiboPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
