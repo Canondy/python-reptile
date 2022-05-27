@@ -63,3 +63,8 @@
 #
 #              方法：settings.py 的字典ITEM_PIPELINES 中添加一个 管道类配置 ，
 #                   在pipelines.py中添加一个管道类类 把数据存到数据库
+# 4.基于spider的全站数据爬取：
+#       说明：就是将网站中某板块下的全部页码的数据进行爬取
+#       需求：爬取 https://www.pximg.com/meinv 网站的图片标题
+#       实现方式：
+#           自动手动发送请求
