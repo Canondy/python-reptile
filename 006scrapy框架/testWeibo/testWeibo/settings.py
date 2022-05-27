@@ -70,6 +70,7 @@ ITEM_PIPELINES = {
    # testWeibo.pipelines.TestweiboPipeline 这个是管道文件中的管道类
    # 300表示的是优先级，数字越大，优先级越低
    'testWeibo.pipelines.TestweiboPipeline': 300,
+   'testWeibo.pipelines.MysqlPipeline': 302
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
