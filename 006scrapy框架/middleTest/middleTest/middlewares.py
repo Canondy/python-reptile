@@ -54,6 +54,7 @@ class MiddletestDownloaderMiddleware:
         "(KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24"
     ]
 
+    # 这些ip不能用，只写的是模板
     PROXY_http = [
         '153.180.102.104:80',
         '195.208.131.189:56055',
