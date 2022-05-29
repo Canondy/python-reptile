@@ -9,4 +9,9 @@ import scrapy
 class TestcrawlspiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    href = scrapy.Field()
+    title = scrapy.Field()
+
+class DetailItem(scrapy.Item):
+    detail_title = scrapy.Field()
+    content = scrapy.Field()
