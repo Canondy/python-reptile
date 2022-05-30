@@ -97,6 +97,8 @@
 #         2>. 每个板块对应的新闻标题都是动态加载的
 #         3>. 通过解析出每条新闻详情页的url获取详情页的页面源码，解析新闻内容
 # 10.CrawlSpider类：是Spider的子类
+#         项目名称：testCrawlSpider
+#         启动项目命令：scrapy crawl sunSpider
 #         全站数据爬取：
 #               基于Spider类：手动发送请求
 #               基于CrawlSpider
@@ -111,6 +113,7 @@
 #                               作用: 将连接提取器提取到的链接进行指定规则（callback）的解析
 #
 # 11.分布式爬虫
+#       ~项目：fbsPro
 #       ~概念：需要搭建一个分布式的集群，让其对一组资源进行分布联合爬取
 #       ~作用：提升爬取数据的效率
 #       ~如何实现分布式爬取：
@@ -147,9 +150,26 @@
 #                    执行工程：
 #                        切换到fbsPro/fbsPro/spider目录下
 #                        执行命令：scrapy  runspider  爬虫文件(fbs.py)
+#                        此项目命令： scrapy runspider fbs.py
 #                    向调度器中放入一个起始的url：
 #                        调度器的对列在redis的客户端中：
 #                               在redis客户端中执行命令： lpush  (爬虫文件中的redis_key对应的）sun  爬取的网址
 #                                  这个项目的命令： lpush sun  https://movie.douban.com/top250?start=0
+#
+# 12.增量式爬虫
+#       概念：检测网站数据更新的情况，只会爬取网站更新出来的数据
+#       分析：
+#           指定一个起始的url
+#           基于CrawlSpider获取其他页码连接
+#           基于Rule将其他页码连接进行请求
+#           从每一个页码对应的页面中解析出每一个电影详情页的url
+
+#           核心：检测电影详情页的url有没有被请求过
+#               将爬取过的电影详情页的url进行存储
+#                   存储到redis的set数据结构中
+
+#           对详情页url发送请求，然后解析出电影的名称和简介
+#           进行持久化存储
+#       项目：zlsMovie
 #
 #
