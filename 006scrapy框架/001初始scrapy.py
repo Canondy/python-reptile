@@ -110,5 +110,46 @@
 #                         规则解析器：
 #                               作用: 将连接提取器提取到的链接进行指定规则（callback）的解析
 #
+# 11.分布式爬虫
+#       ~概念：需要搭建一个分布式的集群，让其对一组资源进行分布联合爬取
+#       ~作用：提升爬取数据的效率
+#       ~如何实现分布式爬取：
+#           -安装scrapy-redis的组件
+#           -原生的scrapy不能实现分布式爬虫，必须让scrapy结合scrapy-redis组件一起实现分布式爬虫
+#           -scrapy-redis组件作用：
+#                   可以给原生scrapy框架提供可以被共享的管道和调度器
+#           -实现流程：
+#                   创建工程
+#                   创建一个基于CrawlSpider类型的爬虫文件
+#                   修改当前的爬虫文件
+#                       导包：from scrapy_redis.spiders import RedisCrawlSpider
+#                       将start_url和allowed_domains进行注释
+#                       添加新属性 redis_key = 'sun'  可以被共享的调度器对列的名称
+#                       编写数据解析相关的操作
+#                       将当前爬虫类的父类修改为RedisCrawlSpider
+#                   修改配置文件settings:
+#                       指定使用可以被共享的管道：
+#                             TIEN_PIPELENS = {
+#                                 'scrapy.redis.pipelines.redisPipeline': 400
+#                             }
+#                       指定调度器：
+#                               增加一个去重容器类的配置，作用使用redis的set集合来存储请求的指纹数据，从而实现请求去重的持久化
+#                               DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+#                               # 使用scrapy-redis组件自己的调度器
+#                               SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+#                               # 配置调度器是否要持久化，也就是当爬虫结束了，要不要清空redis中请求对列和去重指纹的set
+#                               #如果是True,（服务宕机后，爬取没有爬过的数据，之前的爬过的数据，不会再次爬取，数据不会重复）就实现了增量式爬取，
+#                               SCHEDULER_PERSIST = True
+#                       指定redis服务器：
+#                                 REDIS_HOST = '127.0.0.1'
+#                                 REDIS_PORT = 6379
+#                                 REDIS_ENCODING = 'utf-8'
+#                    执行工程：
+#                        切换到fbsPro/fbsPro/spider目录下
+#                        执行命令：scrapy  runspider  爬虫文件(fbs.py)
+#                    向调度器中放入一个起始的url：
+#                        调度器的对列在redis的客户端中：
+#                               在redis客户端中执行命令： lpush  (爬虫文件中的redis_key对应的）sun  爬取的网址
+#                                  这个项目的命令： lpush sun  https://movie.douban.com/top250?start=0
 #
 #
