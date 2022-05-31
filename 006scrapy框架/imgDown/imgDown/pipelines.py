@@ -15,20 +15,26 @@ import scrapy
 #         return item
 
 # ImagesPipeline专用于文件下载的管道，下载过程支持异步和多线程
-class ImgsPipeline(ImagesPipeline):
+class ImgsPipeLine(ImagesPipeline):
 
     # 可以根据图片地址进行图片数据请求
+    # def get_media_requests(self, item, info):
+    #     print(item)
+    #     yield scrapy.Request(item["img_url"])
+
     def get_media_requests(self, item, info):
-        yield scrapy.Request(item["img_url"])
+        print(f'{item["img_url"]}正在下载')
+        for url in item["img_url"]:
+            yield scrapy.Request(url, meta={"item": item})
 
     # 指定图片存储的路径
-    # def file_path(self, request, response=None, info=None, *, item=None):
-    #     img_name = request.url.split("/")[-1]
-    #     return img_name
-
-    def file_path(self, request, response=None, info=None):
+    def file_path(self, request, response=None, info=None, *, item=None):
         img_name = request.url.split("/")[-1]
         return img_name
+
+    # def file_path(self, request, response=None, info=None):
+    #     img_name = request.url.split("/")[-1]
+    #     return img_name
 
     def item_completed(self, results, item, info):
         return item  # 返回给下一个即将被执行的管道类
