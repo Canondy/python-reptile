@@ -22,12 +22,11 @@ class DoubanPipeline:
         try:
             if item.__class__.__name__ == "DoubanItem":
                 # sql语句
-                # self.cursor.execute('insert into movie values ("%s","%s","%s","%s","%s","%s","%s","%s","%s","%s")' % (item['is_sort'], item['movie_cover_image_url'], item['movie_detail_url'], item['movie_name'], item['score'], item['number'], item['year'], item['country'], item['movie_type'], item['desc']))
-                # self.conn.commit()
-                pass
+                self.cursor.execute('insert into movie values ("%s","%s","%s","%s","%s","%s","%s","%s","%s","%s")' % (item['is_sort'], item['movie_cover_image_url'], item['movie_detail_url'], item['movie_name'], item['score'], item['number'], item['year'], item['country'], item['movie_type'], item['desc']))
+                self.conn.commit()
             else:
                 # sql语句
-                self.cursor.execute('insert into movie_detail values ("%s","%s","%s","%s","%s","%s")' % (item['detail_title'], item['director'], item['screenwriter'], item['starring'], item['introduction_title'], item['movie_context']))
+                self.cursor.execute('insert into movie_detail values ("%s","%s","%s","%s","%s","%s", "%s")' % (item['detail_title'], item['director'], item['screenwriter'], item['starring'], item['introduction_title'], item['movie_context'], item['is_sort']))
                 self.conn.commit()
         except Exception as e:
             print(e)

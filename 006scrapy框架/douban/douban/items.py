@@ -29,3 +29,4 @@ class DetailItem(scrapy.Item):
     # movie_length = scrapy.Field()
     introduction_title = scrapy.Field()
     movie_context = scrapy.Field()
+    is_sort = scrapy.Field()

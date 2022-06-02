@@ -73,6 +73,8 @@ class TestdoubanSpider(CrawlSpider):
 
     # 解析详情页
     def parse_detail(self, response):
+        # 排名
+        is_sort = response.xpath('//*[@id="content"]/div[1]/span[1]/text()').extract()[0].split(".")[1]
         # 电影名称
         detail_title = response.xpath('//*[@id="content"]/h1/span/text()').extract()[0]
         # 导演
@@ -88,8 +90,9 @@ class TestdoubanSpider(CrawlSpider):
         # 电影简介内容
         movie_context = ''.join(response.xpath('//*[@id="link-report"]/span[1]//text()').extract())
         movie_context = movie_context.replace("©豆瓣", "").replace(" ", "").replace("\n\u3000\u3000", "").replace("\n", "")
-        # print([detail_title, movie_context])
+        # print([is_sort, movie_length])
         item = DetailItem()
+        item['is_sort'] = is_sort
         item['detail_title'] = detail_title
         item['director'] = director
         item['screenwriter'] = screenwriter
