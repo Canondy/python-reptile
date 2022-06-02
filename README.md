@@ -35,6 +35,7 @@ python爬虫学习目录树
 * ├── 006scrapy框架
 * │  ├── 001初始scrapy.py
 * │  ├── bossJob
+* │  ├── douban
 * │  ├── fbsPro
 * │  ├── firstTest
 * │  ├── imgDown
