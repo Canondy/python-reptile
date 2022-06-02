@@ -1,7 +1,7 @@
 import scrapy
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
-
+from douban.items import DoubanItem, DetailItem
 
 class TestdoubanSpider(CrawlSpider):
     name = 'testDouban'
@@ -46,10 +46,32 @@ class TestdoubanSpider(CrawlSpider):
             number = ''.join(li.xpath("./div/div[2]/div[2]/div/span[4]/text()").extract()).replace("人评价", "")
             # 描述
             desc = ''.join(li.xpath("./div/div[2]/div[2]/p[2]/span/text()").extract())
-            # print(score, number, desc)
-            # break
 
-    #
+            cont = ''.join(li.xpath("./div/div[2]/div[2]/p[1]//text()[2]").extract())
+            cont = cont.replace("\n                        ", "").replace("\xa0", '')
+            # 年份
+            year = cont.split("/")[0].replace(" ", "")
+            # 国家
+            country = cont.split("/")[1]
+            # 电影类型
+            movie_type = cont.split("/")[2]
+            # print(cont)
+            # print([year, country, movie_type])
+            item = DoubanItem()
+            item['is_sort'] = is_sort
+            item['movie_cover_image_url'] = movie_cover_image_url
+            item['movie_detail_url'] = movie_detail_url
+            item['movie_name'] = movie_name
+            item['score'] = score
+            item['number'] = number
+            item['desc'] = desc
+            item['year'] = year
+            item['country'] = country
+            item['movie_type'] = movie_type
+            yield item
+
+
+    # 解析详情页
     def parse_detail(self, response):
         # 电影名称
         detail_title = response.xpath('//*[@id="content"]/h1/span/text()').extract()[0]
@@ -59,18 +81,20 @@ class TestdoubanSpider(CrawlSpider):
         screenwriter = ''.join(response.xpath('//*[@id="info"]/span[2]/span[2]//text()').extract())
         # 主演
         starring = ''.join(response.xpath('//*[@id="info"]/span[3]/span[2]//text()').extract())
-        # 电影类型 缺少值，后续处理
-        movie_type = ''.join(response.xpath('//*[@id="info"]/span[5]/text()').extract())
-        # 国家或地区  缺少值，后续处理
-        country_region = response.xpath('//*[@id="info"]/text()[4]/text()').extract()
-        # 上映时间  缺少值，后续处理
-        release_time = ''.join(response.xpath('//*[@id="info"]/span[12]').extract())
         # 片长    缺少值，后续处理
-        length = ''.join(response.xpath('//*[@id="info"]/span[16]//text()').extract())
+        movie_length = ''.join(response.xpath('//*[@id="info"]/span[16]//text()').extract())
         # 简介标题
         introduction_title = ''.join(response.xpath('//*[@id="content"]/div[3]/div[1]/div[3]/h2/i/text()').extract())
         # 电影简介内容
         movie_context = ''.join(response.xpath('//*[@id="link-report"]/span[1]//text()').extract())
-        movie_context = movie_context.replace("©豆瓣", "").replace("\u3000", "").replace("\n", "")
-        print([detail_title, movie_context])
-
+        movie_context = movie_context.replace("©豆瓣", "").replace(" ", "").replace("\n\u3000\u3000", "").replace("\n", "")
+        # print([detail_title, movie_context])
+        item = DetailItem()
+        item['detail_title'] = detail_title
+        item['director'] = director
+        item['screenwriter'] = screenwriter
+        item['starring'] = starring
+        # item['movie_length'] = movie_length
+        item['introduction_title'] = introduction_title
+        item['movie_context'] = movie_context
+        yield item
