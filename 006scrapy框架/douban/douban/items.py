@@ -26,6 +26,6 @@ class DetailItem(scrapy.Item):
     director = scrapy.Field()
     screenwriter = scrapy.Field()
     starring = scrapy.Field()
-    movie_length = scrapy.Field()
+    # movie_length = scrapy.Field()
     introduction_title = scrapy.Field()
     movie_context = scrapy.Field()
